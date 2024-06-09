@@ -33,7 +33,7 @@ def formulario():
             flash('Erro de nome ao analisar a função.', 'alert-danger')
         except Exception as e:
             # Se houver qualquer outro erro, exibe uma mensagem de erro genérica
-            flash(f'Erro ao analisar a função', 'alert-danger')
+            flash(f'Erro ao analisar a função {str(e)}', 'alert-danger')
             return redirect(url_for('padrao'))
 
     return render_template('formulario.html', form=form_)
