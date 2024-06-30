@@ -3,9 +3,9 @@ rotas
 """
 from flask import flash, redirect, render_template, url_for
 
-from graficos import app
-from graficos.forms import Formulario
-from graficos.funcoes import resultado_funcao
+from src import app
+from src.forms import Formulario
+from src.resultado import resultado_funcao
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -14,16 +14,16 @@ def formulario():
     Renderiza o formulário HTML e processa os dados submetidos.
     """
     # Cria uma instância do formulário
-    form_ = Formulario()
+    form = Formulario()
 
     # Verifica se o formulário foi submetido e é válido
-    if form_.validate_on_submit():
+    if form.validate_on_submit():
         try:
             # Tenta chamar a função resultado_funcao e redirecionar para a rota 'resultado'
-            if resultado_funcao(form_):
+            if resultado_funcao(form):
                 # Armazena o resultado em uma variável global e redireciona para a rota 'resultado'
                 global graficoJson
-                graficoJson = resultado_funcao(form_)
+                graficoJson = resultado_funcao(form)
                 return redirect(url_for('resultado'))
         except SyntaxError:
             # Se houver um erro de sintaxe, exibe uma mensagem de erro específica
@@ -36,7 +36,8 @@ def formulario():
             flash(f'Erro ao analisar a função {str(e)}', 'alert-danger')
             return redirect(url_for('padrao'))
 
-    return render_template('formulario.html', form=form_)
+    return render_template('formulario.html', form=form)
+
 
 @app.route('/resultado')
 def resultado():

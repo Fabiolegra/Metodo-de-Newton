@@ -8,4 +8,4 @@ load_dotenv()
 app = Flask(__name__)
 APP_SECRET_KEY = os.getenv('APP_SECRET_KEY')
 app.config['SECRET_KEY'] = APP_SECRET_KEY
-from graficos import routes
+from src import routes
