@@ -1,10 +1,12 @@
 import sympy as sp
 
-from verificacao import Verificacao
+from .verificacao import Verificacao
+
+
 class Funcao:
     def __init__(self) -> None:
         self.funcao = None
-    
+
     def criar_funcao(self, expressao: str) -> callable:
         """
         Cria uma função a partir de uma expressão matemática.
@@ -33,9 +35,9 @@ class Funcao:
             float: O valor da derivada da função em x.
         """
         return (self.funcao(x + h) - self.funcao(x - h)) / (2 * h)
-    
-    def metodo_newton_raphson(self,
-        x0: float, epsilon: float = 1e-4, kmax: int = 1000
+
+    def metodo_newton_raphson(
+        self, x0: float, epsilon: float = 1e-4, kmax: int = 1000
     ) -> tuple:
         """
         Aplica o método de Newton-Raphson para encontrar uma raiz de uma função.
@@ -54,7 +56,7 @@ class Funcao:
         iteracoes = []
         while abs(self.funcao(x)) > epsilon and k < kmax:
             try:
-                x = x - self.funcao(x) / Funcao.derivada(self.funcao, x)
+                x = x - self.funcao(x) / self.derivada(x)
             except ZeroDivisionError:
                 x = 0
                 break

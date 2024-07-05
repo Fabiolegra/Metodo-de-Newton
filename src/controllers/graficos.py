@@ -2,7 +2,8 @@ import plotly
 import plotly.graph_objects as go
 import json
 import numpy as np
-from verificacao import Verificacao
+from .verificacao import Verificacao
+
 
 class Grafico:
     @staticmethod
