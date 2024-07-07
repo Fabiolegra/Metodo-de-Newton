@@ -16,10 +16,10 @@ def resultado_funcao(formulario: Form) -> bool:
     Returns:
         bool: True se a função foi plotada com sucesso, False se houve um erro na entrada.
     """
-    if not 'x' in formulario.funcao.data:
+    if not 'x' in formulario.funcao.data.lower():
         return False
     try:
-        expressao = formulario.funcao.data
+        expressao = formulario.funcao.data.lower()
         instancia_funcao = Funcao()
         funcao = instancia_funcao.criar_funcao(expressao)
         x1, y1, _ = instancia_funcao.metodo_newton_raphson(
