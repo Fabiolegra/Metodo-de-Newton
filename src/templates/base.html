@@ -1,87 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="style/estilo.css" rel="stylesheet" type="text/css">
-    <title>Raiz da função</title>
-  </head>
-  <body style="background-color: #1d1da8; height: 100%;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Plotly -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  
+  <title>Raiz da função</title>
+
   <style>
+    /* Cores do site */
+    :root {
+      --cor-fundo: #0d1b5a; /* azul escuro */
+      --cor-titulo: #53e221; /* verde vibrante */
+      --cor-texto: #ffffff;  /* branco */
+      --cor-links: #70ff5b;  /* verde claro para links hover */
+      --cor-borda: #70ff5b33; /* verde translúcido para bordas */
+    }
+
     html, body {
-    overflow-x: hidden;
-}
-    header{
-      border-bottom: 2px line  white;
-  }
-  a {
-    text-decoration-color: #53e221;
-    text-decoration-thickness: 0.1em;
-  }
-  p,
-  .str {
-    font-family: "Poppins", sans-serif !important;
-    font-weight: 400 !important;
-    font-style: normal !important;
-    color: #fff !important;
-  }
+      overflow-x: hidden;
+      font-family: "Poppins", sans-serif;
+      background-color: var(--cor-fundo);
+      color: var(--cor-texto);
+      height: 100%;
+      margin: 0;
+    }
 
-  h1,
-  .strb {
-    font-family: "Poppins", sans-serif !important;
-    font-weight: 900 !important;
-    font-style: normal !important;
-  }
-  h1 {
-    color: #53e221 !important;
-  }
+    header {
+      border-bottom: 2px solid var(--cor-borda);
+      padding: 0.5rem 0;
+    }
 
+    header a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--cor-texto);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    header a:hover {
+      color: var(--cor-titulo);
+    }
+
+    nav a {
+      color: var(--cor-texto);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--cor-links);
+    }
+
+    h1, .strb {
+      font-weight: 900 !important;
+      color: var(--cor-titulo);
+    }
+
+    p, .str {
+      font-weight: 400 !important;
+      color: var(--cor-texto) !important;
+      margin: 0;
+    }
+
+    footer {
+      border-top: 2px solid var(--cor-borda);
+      padding: 0.5rem 0;
+    }
+
+    footer a {
+      color: var(--cor-texto);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--cor-titulo);
+    }
   </style>
-  <!-- cabeçalho da pagina -->
-  <header class="border-bottom border-1 border-white">
-    <div class= "text-center p-2">
-      <div>
-        <a href="https://github.com/Fabiolegra" target="_blank" style="text-decoration: nome;">
-          <i class="fab fa-github" style='font-size:20px'></i>
-          <p class="str ml-1 justify-items-center" style='font-size:20px'>Fabiolegra</p>
-        </a>
-      </div>
-    </div>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header class="text-center">
+    <a href="https://github.com/Fabiolegra" target="_blank">
+      <i class="fab fa-github" style="font-size:20px"></i>
+      <span style="font-size:20px">Fabiolegra</span>
+    </a>
   </header>
-  <div class="d-flex justify-content-center gap-2">
-    <a href="{{url_for('formulario')}}">
-      <p>Formulario</p>
-    </a>
-    <a href="{{url_for('padrao')}}">
-      <p>Padrão de função</p>
-    </a>
-    <a href="{{url_for('informacao')}}">
-        <p>sobre o Metodo</p>
-    </a>
-  </div>
-  <div  style="height: 70vh;">
-    {% block body %}
-    {% endblock %}
-  </div>
 
+  <!-- Navegação -->
+  <nav class="d-flex justify-content-center gap-4 my-3">
+    <a href="{{ url_for('formulario') }}">Formulário</a>
+    <a href="{{ url_for('padrao') }}">Padrão de função</a>
+    <a href="{{ url_for('informacao') }}">Sobre o Método</a>
+  </nav>
 
-  <!-- rodape da pagina -->
-  <footer class="border-top border-1 border-white">
-      <div class="text-center p-2">
-          <a href="https://github.com/Fabiolegra" target="_blank">
-              <p class="str">2024 - Fabio Argel</p>
-          </a>
-      </div>
+  <!-- Conteúdo principal -->
+  <main style="min-height: 70vh;">
+    {% block body %}{% endblock %}
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="text-center">
+    <a href="https://github.com/Fabiolegra" target="_blank">
+      <p class="mb-0">2024 - Fabio Argel</p>
+    </a>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-  </body>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</body>
 </html>

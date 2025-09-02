@@ -1,59 +1,76 @@
 {% extends "base.html" %}
 {% block body %}
-  <!-- adiciona as mensagens de alerta-->
-  <div class="container str">
-    {% with mensagens = get_flashed_messages(with_categories=True) %}
-      {% if mensagens %}
-        {% for categoria,mensagem in mensagens %}
-            <div class="alert {{categoria}} mt-1 ">{{mensagem}}</div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-  </div>
 
-  <div class="d-flex justify-content-center">
-    <form method="POST" class="d-flex flex-column justify-content-center align-items-center border border-1 border-white rounded p-3">
-      {{form.csrf_token}}
-      <h1>Metodo de newton</h1>
-      <!-- Função -->
-      <div class="container form-group justify-items-center">
-        {{form.funcao.label(class="form-control-label str")}}
-        {% if form.funcao.errors %}
-          {{form.funcao(class="form-control is-invalid")}}
+<!-- Mensagens de alerta -->
+<div class="container mt-3">
+  {% with mensagens = get_flashed_messages(with_categories=True) %}
+    {% if mensagens %}
+      {% for categoria, mensagem in mensagens %}
+        <div class="alert {{ categoria }} alert-dismissible fade show" role="alert">
+          {{ mensagem }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+</div>
+
+<!-- Formulário -->
+<div class="d-flex justify-content-center">
+  <form method="POST" class="border border-1 border-white rounded p-4 shadow" style="max-width: 500px; width: 100%;">
+    {{ form.csrf_token }}
+    <h1 class="text-center mb-4">Método de Newton</h1>
+
+    <!-- Função -->
+    <div class="mb-3">
+      {{ form.funcao.label(class="form-label str") }}
+      {% if form.funcao.errors %}
+        {{ form.funcao(class="form-control is-invalid strb") }}
         <div class="invalid-feedback">
           {% for error in form.funcao.errors %}
-            {{error}}
+            {{ error }}
           {% endfor %}
         </div>
-        {% else %}
-          {{form.funcao(class="form-control strb")}}
-        {% endif %}
-      </div>
+      {% else %}
+        {{ form.funcao(class="form-control strb") }}
+      {% endif %}
+    </div>
 
-      <!-- palpite1 -->
-      <div class="container form-group justify-items-center">
-        {{form.palpite1.label(class="form-control-label str")}} {% if
-        form.palpite1.errors %} {{form.palpite1(class="form-control
-        is-invalid")}}
+    <!-- Palpite 1 -->
+    <div class="mb-3">
+      {{ form.palpite1.label(class="form-label str") }}
+      {% if form.palpite1.errors %}
+        {{ form.palpite1(class="form-control is-invalid strb") }}
         <div class="invalid-feedback">
-          {% for error in form.palpite1.errors %} {{error}} {% endfor %}
+          {% for error in form.palpite1.errors %}
+            {{ error }}
+          {% endfor %}
         </div>
-        {% else %} {{form.palpite1(class="form-control strb")}} {% endif %}
-      </div>
+      {% else %}
+        {{ form.palpite1(class="form-control strb") }}
+      {% endif %}
+    </div>
 
-      <!-- palpite 2  -->
-      <div class="container form-group justify-items-center">
-        {{form.palpite2.label(class="form-control-label str")}} {% if
-        form.palpite2.errors %} {{form.palpite2(class="form-control
-        is-invalid")}}
+    <!-- Palpite 2 -->
+    <div class="mb-3">
+      {{ form.palpite2.label(class="form-label str") }}
+      {% if form.palpite2.errors %}
+        {{ form.palpite2(class="form-control is-invalid strb") }}
         <div class="invalid-feedback">
-          {% for error in form.palpite2.errors %} {{error}} {% endfor %}
+          {% for error in form.palpite2.errors %}
+            {{ error }}
+          {% endfor %}
         </div>
-        {% else %} {{form.palpite2(class="form-control strb")}} {% endif %}
-      </div>
+      {% else %}
+        {{ form.palpite2(class="form-control strb") }}
+      {% endif %}
+    </div>
 
-      <!-- botão-->
-      {{form.botao(class="btn btn-outline-primary str my-2")}}
-    </form>
-  </div>
-  {% endblock %}
+    <!-- Botão -->
+    <div class="text-center">
+      {{ form.botao(class="btn btn-outline-primary str mt-3 px-4") }}
+    </div>
+  </form>
+</div>
+
+{% endblock %}

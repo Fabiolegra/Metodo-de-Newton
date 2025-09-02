@@ -1,8 +1,16 @@
-{% extends "base.html" %} {% block body %}
-<div id="grafico" class="mb-1">
-  <script>
-    var grafico = {{GRAFICOJSON | safe }};
-    Plotly.newPlot("grafico",grafico.data,grafico.layout);
-  </script>
+{% extends "base.html" %}
+{% block body %}
+
+<div class="container my-4">
+  <div id="grafico" style="width: 100%; height: 70vh;"></div>
 </div>
+
+<script>
+  // Converte o JSON do Flask para objeto JS
+  const grafico = {{ GRAFICOJSON | safe }};
+  
+  // Renderiza o gráfico Plotly
+  Plotly.newPlot("grafico", grafico.data, grafico.layout, {responsive: true});
+</script>
+
 {% endblock %}
